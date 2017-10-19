@@ -1,51 +1,154 @@
 // dependency for inquirer npm package
 var inquirer = require("inquirer");
 var fs = require("fs");
-//require file for simple card
-
-//require file for cloze card
+//require file for basic card
+var basicCard = require("./basicFlashcard.js");
 
 var correct = 0;
 var wrong = 0;
-var cardStack = [];
+var deck = [];
 
-// function Commands(name, position, age, language) {
-//   this.name = name;
-//   this.position = position;
-//   this.age = age;
-//   this.language = language;
-// };
+var musicSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
 
+var parksSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
 
-// // creates the printInfo method and applies it to all programmer objects
-// Programmer.prototype.printInfo = function() {
-//   console.log("Name: " + this.name + "\nPosition: " + this.position + "\nAge: " +
-//   this.age + "\nLanguages: " + this.language);
-// };
+var capitalSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
 
-// runs inquirer and asks the user a series of questions whose replies are
-// stored within the variable answers inside of the .then statement.
+var moviesSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
+
+var makeDeck = function(sourceArray){
+	for (i = 0; i < sourceArray.length; i++){
+	deck.push(new basicCard (sourceArray[i].front, sourceArray[i].back));
+	};
+	return deck;
+};
+
+// runs inquirer and asks the user a series of questions whose replies are stored within the variable answers inside of the .then statement.
 inquirer.prompt([
 	{
     type: "checkbox",
     name: "userSelection",
     message: "Please choose a command",
-    choices: ['create flashcards', 'create cloze flashcards', 'flashcards quiz', 'cloze flashcards quiz', 'exit']
+    choices: [
+    'Music Flashcards Quiz', 
+    'National Parks Flashcards Quiz', 
+    'Capitals Flashcards Quiz', 
+    'Movies Flashcards Quiz', 
+    'exit']
   
 	}
 ]).then(function(choices) {
+	console.log(choices);
   // if/then function based on userchoices
-	  if (choices.userSelection === 'create flashcards') {
-	  	console.log('create flashcards');
-	  } else if (choices.userSelection === 'create cloze flashcards') {
-	  	console.log('create cloze flashcards');
-	  } else if (choices.userSelection === 'flashcards quiz') {
-	  	console.log('flashcards quiz');
-	  } else if (choices.userSelection === 'cloze flashcards quiz') {
-	  	console.log('cloze flashcards quiz');
-	  } else if (choices.userSelection === 'exit') {
-	  	console.log('Your session has ended. Come back soon!');
-	  }
+			  if (choices.userSelection[0] === 'Music Flashcards Quiz') {
+			  	 console.log('Music Quiz');
+			  	 deck = makeDeck(musicSources);
+			  	 cardAction();
+			  	  	//function that asks all questions inside of deck and checks the answer
+	  	  	//var startQuiz = function (deck) {
+	  	  		// for (card in deck){
+	  	  		// 	console.log(deck[card].front);
+	  	  		// 	console.log(deck[card].back);
+	  	  		// };
+	  	  		//}
+	  	  	//startQuiz(deck);
+	  	  } else if (choices.userSelection[0] === 'National Parks Flashcards Quiz') {
+	  	  	console.log('National Parks Quiz');
+	  	  	deck = makeDeck(parksSources);
+	  	  } else if (choices.userSelection[0] === 'Capitals Flashcards Quiz') {
+	  		console.log('Capitals Quiz');
+	  		deck = makeDeck(capitalsSources);
+	  
+		  } else if (choices.userSelection[0] === 'Movies Flashcards Quiz') {
+		  	console.log('Movies Quiz');
+		  	deck = makeDeck(moviesSources);
+		  
+		  } else if (choices.userSelection[0] === 'exit') {
+		  	console.log('Your session has ended. Come back soon!');
+		  }
 	});
+
+
+//an arry of objects to be used to create the flashcards
+
+//creates cards and pushes cards into an array
+
+
+//deck = makeDeck(englishSources)
+
+//console log of the deck array
+	//console.log(deck);
+
+// var card = new basicCard ('Q', 'A');
+// console.log(card);
+//functions to call to read cards and do quizzes
+
+startQuiz = function(deck){
+	//code to get a card
+	var length = deck.length
+	for (i = 0; i < length; i++){
+		var currentCard = deck.pop()
+		var userGuess = process.argV[3];
+		inquirer.prompt([this.front]).then(function(userGuess) {
+			console.log("user guess: " + userGuess)
+			//write if statement for if user answer === this.back
+			//if
+			});
+			console.log(currentCard.front);
+		};
+	};
+
+	 
+
+
+        
+    //     }
+    //     console.log(data);
+    // });
+
+    var cardAction = function(){
+		inquirer.prompt([
+			{
+		    type: "checkbox",
+		    name: "userSelection",
+		    message: "What would you like to do with the card?",
+		    choices: [
+		    'answer', 
+		    'flip', 
+		    'next',  
+		    'exit']
+			}
+		]).then(function(choices) {
+			if (choices.userSelection[0] === 'answer') {
+			   console.log('answer');
+			  	 //function that shows front of card
+			 } else if (choices.userSelection[0] === 'flip') {
+			  	 console.log('flip');
+			  	 //function that shows the front of card
+			 } else if (choices.userSelection[0] === 'next') {
+			  	 console.log('next');
+			  	 //function that displays next card in the array
+			 } else if (choices.userSelection[0] === 'exit') {
+			  	 console.log('Thanks for playing!');
+			}
+		 });
+	};
+
+
+
+
+// flashcards();
+
+// .then(function(answer){
+// 	switch(answer.doSomething) {
+// 		case "Music Flashcards Quiz":
+// 			callfunction();
+// 			break;
+// 		case "National Parks Flashcards Quiz":
+// 			callfunction()
+// 			break;
+
+// 	}
+// });
 
 

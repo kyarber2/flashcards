@@ -4,6 +4,8 @@ var Basic = function(front, back) {
 
 };
 
+//console.log("basicFlashcard loaded");
+
 Basic.prototype.printCard = function() {
     console.log('Front: ' + this.front + ', ' + 'Back: ' + this.back);
 };
@@ -15,7 +17,7 @@ Basic.prototype.printFront = function() {
 
 
 Basic.prototype.printBack = function() {
-    console.log('Nice try! The answer is ' + this.back + '.');
+    console.log('Good guess! The answer is ' + this.back + '.');
 };
 
 module.exports = Basic;

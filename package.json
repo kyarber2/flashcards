@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kyarber2/flashcards#readme",
   "dependencies": {
-    "inquirer": "^3.3.0"
+    "inquirer": "^3.3.0",
+    "inspect": "0.0.2"
   }
 }
