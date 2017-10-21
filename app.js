@@ -8,15 +8,15 @@ var correct = 0;
 var wrong = 0;
 var deck = [];
 var currentCard = '';
-var userGuess = ''.toLowerCase();
+var userGuess = '';
 
-var musicSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
+var musicSources = [{'front':'Who performed at the 2016 Super Bowl Halftime show?', 'back':'Lady Gaga'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Jim Morrision was the lead singer of which band?', 'back':'The Doors'}, {'front':'Which band sings "No Scrubs"?', 'back':'TLC'}];
 
-var parksSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
+var parksSources = [{'front':'Which national park is home to the lowest point in the western hemisphere?', 'back':'Death Valley'}, {'front':'Which national is home to the longest cave system in the world?', 'back':'Mammoth Cave'}, {'front':'Which national park, founded in 1872, is the oldest national park?', 'back':'Yellowstone'}, {'front':'Which state is home to Arches National Park?', 'back':'Utah'}];
 
-var capitalSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'Quito'}];
+var capitalSources = [{'front':'What is the capital of The Netherlands?', 'back':'Amsterdam'}, {'front':'What is the capital of The Ukraine?', 'back':'Kiev'}, {'front':'What is the capital of Italy?', 'back': 'Rome'}, {'front':'What city is the capital of Ecuador?','back':'Quito'}];
 
-var moviesSources = [{'front':'What word is both a fruit and a color?', 'back':'orange'}, {'front':'Which band has an album named "Rubber Soul?"', 'back':'The Beatles'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'What city is the capital of Ecuador?', 'back':'quito'}];
+var moviesSources = [{'front':'Which 1960 Alfred Hitchcock film is based on a book by the same name?', 'back':'Psycho'}, {'front':'In which movie do the characters, "need a bigger boat"?', 'back':'Jaws'}, {'front':'Who stars in "The Hunger Games"?', 'back':'Jennifer Lawrence'}, {'front':'Which movie, based on a Stephen King novel, features a clown named "Pennywise"?', 'back':'IT'}];
 
 var makeDeck = function(sourceArray){
 	for (i = 0; i < sourceArray.length; i++){
@@ -29,6 +29,10 @@ var flip = function(currentCard){
 	console.log(currentCard.back);
 };
 
+var nextCard = function(deck) {
+	console.log(currentCard.front);
+};
+
 var compare = function(){
 	inquirer.prompt([
 	{
@@ -36,33 +40,25 @@ var compare = function(){
     name: "userGuess",
     message: "Type in your guess!",
     }
-]).then(function(userGuess, currentCard) {
-	console.log(userGuess);
-	console.log("currentCard:" + currentCard)
-	if(userGuess === currentCard.back){
-		console.log("Correct!")
+]).then(function(userGuess) {
+	console.log("Your guess: " + userGuess.userGuess);
+	var userInput = userGuess.userGuess.toLowerCase(); 
+	//console.log("currentCard.back:" + currentCard.back)
+	if(userInput === currentCard.back.toLowerCase()){
+		console.log("Correct!");
+	} else {
+		console.log("Incorrect! The correct answer is: " + currentCard.back);
 	}
    });
 };
-
-
-
 
 startQuiz = function(deck){
 	//code to get a card
 	var length = deck.length
 	for (i = 0; i < length; i++){
 		currentCard = deck[i];
-		//var userGuess = process.argV[3];
 		};
-		console.log(currentCard.front);
-		// inquirer.prompt([this.front]).then(function(userGuess) {
-		// 	console.log("user guess: " + userGuess)
-		// 	//write if statement for if user answer === this.back
-		// 	//if
-		// 	});
-		// 	console.log(currentCard.front);
-		
+		console.log(currentCard.front);	
 	};
 
 // runs inquirer and asks the user a series of questions whose replies are stored within the variable answers inside of the .then statement.
@@ -80,25 +76,27 @@ inquirer.prompt([
   
 	}
 ]).then(function(choices) {
-	console.log(choices);
+	//console.log(choices);
   // if/then function based on userchoices
 			  if (choices.userSelection[0] === 'Music Flashcards Quiz') {
-			  	 console.log('Music Quiz');
 			  	 deck = makeDeck(musicSources);
 			  	 startQuiz(musicSources);
 			  	 cardAction();
 			
 	  	  	//startQuiz(deck);
 	  	  } else if (choices.userSelection[0] === 'National Parks Flashcards Quiz') {
-	  	  	console.log('National Parks Quiz');
 	  	  	deck = makeDeck(parksSources);
+			  	 startQuiz(parksSources);
+			  	 cardAction();
 	  	  } else if (choices.userSelection[0] === 'Capitals Flashcards Quiz') {
-	  		console.log('Capitals Quiz');
 	  		deck = makeDeck(capitalsSources);
+			  	 startQuiz(capitalsSources);
+			  	 cardAction();
 	  
 		  } else if (choices.userSelection[0] === 'Movies Flashcards Quiz') {
-		  	console.log('Movies Quiz');
 		  	deck = makeDeck(moviesSources);
+			  	 startQuiz(moviesSources);
+			  	 cardAction();
 		  
 		  } else if (choices.userSelection[0] === 'exit') {
 		  	console.log('Your session has ended. Come back soon!');
@@ -124,10 +122,13 @@ var cardAction = function(){
 			  	 //function that shows front of card
 			 } else if (choices.userSelection[0] === 'flip') {
 			  	 //console.log('flip');
+			  	  //function that shows the front of card
 			  	 flip(currentCard);
-			  	 //function that shows the front of card
+			  	
 			 } else if (choices.userSelection[0] === 'next') {
 			  	 console.log('next');
+			  	 nextCard();
+			  	 cardAction();
 			  	 //function that displays next card in the array
 			 } else if (choices.userSelection[0] === 'exit') {
 			  	 console.log('Thanks for playing!');
@@ -139,17 +140,8 @@ var cardAction = function(){
 
 //creates cards and pushes cards into an array
 
-
-//deck = makeDeck(englishSources)
-
 //console log of the deck array
 	//console.log(deck);
-
-// var card = new basicCard ('Q', 'A');
-// console.log(card);
-//functions to call to read cards and do quizzes
-
-
 
   	  	//function that asks all questions inside of deck and checks the answer
 	  	  	// var startQuiz = function (deck) {
@@ -169,20 +161,5 @@ var cardAction = function(){
     
 
 
-
-
-// flashcards();
-
-// .then(function(answer){
-// 	switch(answer.doSomething) {
-// 		case "Music Flashcards Quiz":
-// 			callfunction();
-// 			break;
-// 		case "National Parks Flashcards Quiz":
-// 			callfunction()
-// 			break;
-
-// 	}
-// });
 
 
