@@ -119,7 +119,7 @@ var cardAction = function(){
 			if (choices.userSelection[0] === 'answer') {
 			   //console.log('Please enter your guess.');
 			   compare();
-			   cardAction();
+			   
 			  	 //function that shows front of card
 			 } else if (choices.userSelection[0] === 'flip') {
 			  	 //console.log('flip');
@@ -130,7 +130,6 @@ var cardAction = function(){
 			 } else if (choices.userSelection[0] === 'next') {
 			  	 //console.log('next');
 			  	 nextCard();
-			  	 cardAction();
 			  	 //function that displays next card in the array
 			 } else if (choices.userSelection[0] === 'exit') {
 			  	 console.log('Thanks for playing!');
